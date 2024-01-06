@@ -6,7 +6,7 @@ use MamoPay\Api\Objects\PaymentLink;
 use MamoPay\Api\Objects\PaymentLinks;
 
 /**
- * Payment Links
+ * This class represents the mamopay links resource
  */
 class Links
 {

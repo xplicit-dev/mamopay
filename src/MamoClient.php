@@ -13,8 +13,9 @@ class MamoClient
      * @param string $apikey
      * @param bool $use_sandbox
      */
-    public function __construct($apikey, $use_sandbox = false)
+    public function __construct($apikey='', $use_sandbox = false)
     {
+        $use_sandbox = trim($apikey) == '' ? true : $use_sandbox;
         $this->httpClient = new HttpClient($apikey, $use_sandbox);
     }
 

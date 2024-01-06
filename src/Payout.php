@@ -27,15 +27,14 @@ class Payout
     }
 
     /**
-     * Allows the issuance of disbursements in bulk
+     * Allows the issuance of disbursement
      *
      * @param Disbursement $disbursement
      * @return DisbursementInfo
      */
     public function issue($account_no, $amount, $first_name, $last_name = '', $reason = '', $transfer_method = 'BANK_ACCOUNT')
     {
-        $disbursement = (new Disbursement());
-        $disbursement->set([
+        $disbursement = (new Disbursement())->set([
             'account' => $account_no,
             'amount' => $amount,
             'first_name_or_business_name' => $first_name,
@@ -44,10 +43,12 @@ class Payout
             'transfer_method' => $transfer_method,
         ]);
         $disbursementInfo = $this->httpClient->sendRequest($this->endpoint, ['disbursements' => [$disbursement]], HttpClient::METHOD_POST);
-        if (!empty($disbursementInfo['status']) && $disbursementInfo['status'] == false) {
+        if (isset($disbursementInfo->status) && $disbursementInfo->status == false) {
         } else {
             $disbursementInfo = json_decode(json_encode($disbursementInfo), true);
-            $disbursementInfo = (object) $disbursementInfo[0];
+            if (is_array($disbursementInfo)) {
+                $disbursementInfo = (object) $disbursementInfo[0];
+            }
         }
 
         return $disbursementInfo;

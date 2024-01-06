@@ -21,5 +21,7 @@ trait PropertySetterTrait
                 $this->$property = $value;
             }
         }
+
+        return $this;
     }
 }

@@ -26,7 +26,7 @@ class Webhook
      * @param string $auth_header
      * @return WebhookInfo
      */
-    public function create(string $uri, array $enabled_events, string $auth_header)
+    public function create(string $uri, array $enabled_events, string $auth_header = '')
     {
         $params = ['uri' => $uri, 'enabled_events' => $enabled_events, 'auth_header' => $auth_header];
         return $this->httpClient->sendRequest($this->endpoint, $params, $this->httpClient::METHOD_POST);
@@ -54,7 +54,7 @@ class Webhook
     public function update(string $webhookId, string $uri, array $enabled_events, string $auth_header)
     {
         $params = ['uri' => $uri, 'enabled_events' => $enabled_events, 'auth_header' => $auth_header];
-        return $this->httpClient->sendRequest($this->endpoint, $params, $this->httpClient::METHOD_PATCH);
+        return $this->httpClient->sendRequest($this->endpoint . $webhookId, $params, $this->httpClient::METHOD_PATCH);
     }
 
     /**
@@ -67,11 +67,10 @@ class Webhook
     public function delete(string $webhookId)
     {
         $status = false;
-        $response = $this->httpClient->sendRequest($this->endpoint, [], $this->httpClient::METHOD_DELETE);
+        $response = $this->httpClient->sendRequest($this->endpoint . $webhookId, [], $this->httpClient::METHOD_DELETE);
         if (!empty($response['success']) && $response['success'] == true) {
             $status = true;
         }
         return $status;
     }
-
 }

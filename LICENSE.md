@@ -1,6 +1,6 @@
 The MIT License (MIT)
 
-Copyright (c) xplicit-dev <anaspk144@domain.com>
+Copyright (c) xplicit-dev <blackboy.email@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

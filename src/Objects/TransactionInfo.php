@@ -57,4 +57,25 @@ class TransactionInfo
 
     /** @var ?PaymentMethod|object Payment method details */
     public ?PaymentMethod $payment_method;
+
+    /** @var string Settlement fee in AED */
+    public string $settlement_fee;
+
+    /** @var string Settlement VAT in AED */
+    public string $settlement_vat;
+
+    /** @var string|null Payment link ID (nullable)*/
+    public ?string $payment_link_id;
+
+    /** @var string|null Payment link URL (nullable)*/
+    public ?string $payment_link_url;
+
+    /** @var string|null External ID (nullable) */
+    public ?string $external_id;
+
+    /** @var string|null Error code (nullable) */
+    public ?string $error_code;
+
+    /** @var string|null Error message (nullable) */
+    public ?string $error_message;
 }
