@@ -2,7 +2,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/xplicit-dev/MamoPay.svg?style=flat-square)](https://packagist.org/packages/xplicit-dev/MamoPay)
 
-<!-- [![Total Downloads](https://img.shields.io/packagist/dt/xplicit-dev/MamoPay.svg?style=flat-square)](https://packagist.org/packages/xplicit-dev/MamoPay) -->
+[![Total Downloads](https://img.shields.io/packagist/dt/xplicit-dev/MamoPay.svg?style=flat-square)](https://packagist.org/packages/xplicit-dev/MamoPay)
 
 The MamoPay PHP library offers seamless integration with the MamoPay API for PHP-based applications, streamlining access and enhancing functionality.
 
