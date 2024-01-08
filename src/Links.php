@@ -38,7 +38,7 @@ class Links
      *
      * @return PaymentLink
      */
-    public function create(string $title, float $amount, string $returnUrl = '', array $params = [])
+    public function create(string $title, float $amount = null, string $returnUrl = '', array $params = [])
     {
         $params = array_merge(['title' => $title, 'amount' => $amount, 'return_url' => $returnUrl], $params);
 
