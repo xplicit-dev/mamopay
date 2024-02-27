@@ -60,7 +60,18 @@ $client->links()->get($linkId);
 - [Payout](#payout-section)
   
 - [Webhook](#webhook-section)
-  
+
+
+### Use Not listed Resources
+
+The MamoClient SDK allows you to utilize resources not listed within this package. This flexibility enables you to leverage any additional resources provided by the MamoPay API without constraints.
+
+```php
+use MamoPay\Api\HttpClient;
+
+$client = (new MamoClient('API_KEY'));
+$response = $client->sendRequest('end_point',$params,HttpClient::METHOD_POST);
+```
 
 ## Links <a name="links-section"></a>
 
