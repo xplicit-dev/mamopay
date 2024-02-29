@@ -67,7 +67,7 @@ $client->links()->get($linkId);
 The MamoClient SDK allows you to utilize resources not listed within this package. This flexibility enables you to leverage any additional resources provided by the MamoPay API without constraints.
 
 ```php
-use MamoPay\Api\HttpClient;
+use MamoPay\Api\MamoClient;
 
 $client = (new MamoClient('API_KEY',true));
 $params = ['card_id' => $card_id, 'amount' => $amount, 'currency' => $currency];
