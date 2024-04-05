@@ -33,10 +33,10 @@ use MamoPay\Api\MamoClient;
 $client = (new MamoClient('API_KEY'));
 ```
 
-For sandbox testing, omit the API key:
+For sandbox testing, pass 'true' as second parameter:
 
 ```php
-$client = (new MamoClient());
+$client = (new MamoClient('API_KEY',true));
 ```
 
 The resources can be accessed via the `$client` object. All the methods invocations follow the following pattern

@@ -29,11 +29,11 @@ class HttpClient
     protected string $userAgent = 'mamopay API Client (mamopay.com)';
 
     protected string $liveApiHost = 'business.mamopay.com';
-    protected string $stagingApiHost = 'sandbox.business.mamopay.com';
+    protected string $stagingApiHost = 'sandbox.dev.business.mamopay.com';
 
     protected string $clientVersion = '1.0';
 
-    protected bool $debug = false;
+    public bool $debug = false;
     protected bool $skipSslVerification = false;
 
     protected array $rawResponseHeaders = [];
