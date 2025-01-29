@@ -77,4 +77,14 @@ class MamoClient
     {
         return (new Webhook($this->httpClient));
     }
+
+    /**
+     * Recipients
+     *
+     * @return Recipient
+     */
+    public function recipient()
+    {
+        return (new Recipient($this->httpClient));
+    }
 }

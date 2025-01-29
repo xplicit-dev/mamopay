@@ -89,6 +89,15 @@ class PaymentLink
     /** @var string The email of the customer which will pre-populate in the card info step. */
     public string $email;
 
-    /** @var object The external ID of your choice to associate with payments captured by this payment link. */
+    /** @var object The external Data of your choice to associate with payments captured by this payment link. */
     public object $custom_data;
+
+    /** @var string The external ID of your choice to associate with payments captured by this payment link. */
+    public string $external_id;
+
+    /** @var bool Indicates whether to place the payment on hold and charge it later using the "captures" API. */
+    public bool $hold_and_charge_later;
+
+    /** @var object payouts_share object. */
+    public object $payouts_share;
 }
