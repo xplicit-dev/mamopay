@@ -87,4 +87,14 @@ class MamoClient
     {
         return (new Recipient($this->httpClient));
     }
+
+    /**
+     * Card
+     *
+     * @return Cards
+     */
+    public function card()
+    {
+        return (new Cards($this->httpClient));
+    }
 }

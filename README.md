@@ -61,6 +61,9 @@ $client->links()->get($linkId);
   
 - [Webhook](#webhook-section)
 
+- [Recipient](#recipient-section)
+
+- [Card](#card-section)
 
 ### Use of Unlisted Resources
 
@@ -267,6 +270,127 @@ $client->webhook()->update($webhookId,"http://example.com",WebhookEvent::ALL_EVE
 ```php
 $client->webhook()->delete($webhookId);
 ```
+
+## Recipient-section <a name="recipient-section"></a>
+
+- Fetches all Recipients.
+
+```php
+$client->recipient()->all();
+```
+
+-Create Recipient
+Allows a user to create recipient.
+
+```php
+$recipient = (new RecipientInfo())->set([
+    'recipient_type' => RecipientInfo::RECIPIENT_TYPE_INDIVIDUAL,
+    'first_name' => 'John',
+    'last_name' => 'Doe',
+    'email' => 'john.doe@example.com',
+    'relationship' => RecipientInfo::RELATIONSHIP_CUSTOMER,
+    'reason' => 'Payment for services',
+    'eid_number' => '784-XXXX-XXXXXXX-0',
+    'address' => (new Address())->set([
+        'address_line1' => '123 Main Street',
+        'address_line2' => 'Apt 4B',
+        'city' => 'Dubai',
+        'state' => 'AE',
+        'country' => 'AE'
+    ]),
+    'bank' => (new Bank())->set([
+        'iban' => 'AE080200000123223333121',
+        'account_number' => '123223333121',
+        'name' => 'ABC Bank',
+        'bic_code' => 'ABCDUAE123',
+        'address' => 'XYZ Bank Tower, Dubai',
+        'country' => 'AE'
+    ])
+]);
+
+$client->recipient()->create($recipient)
+
+this will return a \MamoPay\Api\Objects\RecipientInfo object
+```
+
+-Update Recipient
+Allows a user to update recipient details.
+
+
+```php
+$recipient = (new RecipientInfo())->set([
+    'recipient_type' => RecipientInfo::RECIPIENT_TYPE_INDIVIDUAL,
+    'first_name' => 'John',
+    'last_name' => 'Doe',
+    'email' => 'john.doe@example.com',
+    'relationship' => RecipientInfo::RELATIONSHIP_CUSTOMER,
+    'reason' => 'Payment for services',
+    'eid_number' => '784-XXXX-XXXXXXX-0',
+    'address' => (new Address())->set([
+        'address_line1' => '123 Main Street',
+        'address_line2' => 'Apt 4B',
+        'city' => 'Dubai',
+        'state' => 'AE',
+        'country' => 'AE'
+    ]),
+    'bank' => (new Bank())->set([
+        'iban' => 'AE080200000123223333121',
+        'account_number' => '123223333121',
+        'name' => 'ABC Bank',
+        'bic_code' => 'ABCDUAE123',
+        'address' => 'XYZ Bank Tower, Dubai',
+        'country' => 'AE'
+    ])
+]);
+
+$client->recipient()->update($recipientID,$recipient);
+
+this will return a \MamoPay\Api\Objects\RecipientInfo object
+
+recipientID is the recipient identifier returned when creating a recipient.
+
+```
+
+- Fetch Recipient
+Allows a user to fetch recipient details.
+
+```php
+$client->recipient()->get($recipientID)
+
+```
+
+- Delete Recipient
+Allows a user to delete recipient.
+
+```php
+$client->recipient()->delete($recipientID);
+```
+
+
+## Card-section <a name="card-section"></a>
+Create Virtual Corporate Card
+A Virtual Corporate Card (VCC) is a digital payment solution for businesses to simplify corporate expenses like travel and accommodations.
+
+Parms : 
+
+amount
+The amount on the VCC card. The value can not exceed the card balance.
+
+email
+Cardholder’s email address. Card holder must be completed KYC.
+
+booking_id
+Booking reference in case the card will be used for a 1 time booking.
+
+verification_email
+The email address that will be used for verification purposes.
+
+```php
+ $client->card()->create(float $amount, string $email, string $booking_id='', string $verification_email = '', array $params = []);
+ ```
+
+
+
 
 <!-- ### Changelog
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
