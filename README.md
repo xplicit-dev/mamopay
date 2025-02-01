@@ -279,7 +279,7 @@ $client->webhook()->delete($webhookId);
 $client->recipient()->all();
 ```
 
--Create Recipient
+- Create Recipient
 Allows a user to create recipient.
 
 ```php
@@ -313,7 +313,7 @@ $client->recipient()->create($recipient)
 this will return a \MamoPay\Api\Objects\RecipientInfo object
 ```
 
--Update Recipient
+- Update Recipient
 Allows a user to update recipient details.
 
 
@@ -367,7 +367,7 @@ $client->recipient()->delete($recipientID);
 ```
 
 
-## Card-section <a name="card-section"></a>
+## Card Section <a name="card-section"></a>
 Create Virtual Corporate Card
 A Virtual Corporate Card (VCC) is a digital payment solution for businesses to simplify corporate expenses like travel and accommodations.
 
