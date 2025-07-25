@@ -28,7 +28,11 @@ class Webhook
      */
     public function create(string $uri, array $enabled_events, string $auth_header = '')
     {
-        $params = ['uri' => $uri, 'enabled_events' => $enabled_events, 'auth_header' => $auth_header];
+
+        $params = ['url' => $uri, 'enabled_events' => $enabled_events];
+        if (!empty($auth_header)) {
+            $params['auth_header'] = $auth_header;
+        }
         return $this->httpClient->sendRequest($this->endpoint, $params, $this->httpClient::METHOD_POST);
     }
 
@@ -51,9 +55,12 @@ class Webhook
      * @param string $auth_header
      * @return WebhookInfo
      */
-    public function update(string $webhookId, string $uri, array $enabled_events, string $auth_header)
+    public function update(string $webhookId, string $uri, array $enabled_events, string $auth_header="")
     {
-        $params = ['uri' => $uri, 'enabled_events' => $enabled_events, 'auth_header' => $auth_header];
+        $params = ['url' => $uri, 'enabled_events' => $enabled_events];
+        if (!empty($auth_header)) {
+            $params['auth_header'] = $auth_header;
+        }
         return $this->httpClient->sendRequest($this->endpoint . $webhookId, $params, $this->httpClient::METHOD_PATCH);
     }
 
@@ -68,8 +75,26 @@ class Webhook
     {
         $status = false;
         $response = $this->httpClient->sendRequest($this->endpoint . $webhookId, [], $this->httpClient::METHOD_DELETE);
-        if (!empty($response['success']) && $response['success'] == true) {
+        if (!empty($response->success) && $response->success == true) {
             $status = true;
+        }
+        return $status;
+    }
+
+    /**
+     * To delete all registered webhooks
+     * 
+     */
+    public function deleteAll()
+    {
+        $status = false;
+        $registeredWebhooks = $this->all();
+        try {
+            foreach ($registeredWebhooks as $webhook) {
+                $this->delete($webhook->id);
+            }
+            $status = true;
+        } catch (\Throwable $th) {
         }
         return $status;
     }

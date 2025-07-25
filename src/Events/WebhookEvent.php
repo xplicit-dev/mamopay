@@ -10,6 +10,7 @@ class WebhookEvent
     public const CHARGE_REFUNDED = "charge.refunded";
     public const CHARGE_REFUND_FAILED = "charge.refund_failed";
     public const CHARGE_CARD_VERIFIED = "charge.card_verified";
+    public const CHARGE_AUTHORIZED = "charge.authorized";
     public const SUBSCRIPTION_FAILED = "subscription.failed";
     public const SUBSCRIPTION_SUCCEEDED = "subscription.succeeded";
     public const PAYMENT_LINK_CREATE = "payment_link.create";
@@ -23,6 +24,7 @@ class WebhookEvent
         self::CHARGE_REFUNDED,
         self::CHARGE_REFUND_FAILED,
         self::CHARGE_CARD_VERIFIED,
+        self::CHARGE_AUTHORIZED,
         self::SUBSCRIPTION_FAILED,
         self::SUBSCRIPTION_SUCCEEDED,
         self::PAYMENT_LINK_CREATE,
