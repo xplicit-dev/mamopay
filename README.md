@@ -271,6 +271,12 @@ $client->webhook()->update($webhookId,"http://example.com",WebhookEvent::ALL_EVE
 $client->webhook()->delete($webhookId);
 ```
 
+- Delete all registered webhooks
+
+```php
+$client->webhook()->deleteAll();
+```
+
 ## Recipient-section <a name="recipient-section"></a>
 
 - Fetches all Recipients.
