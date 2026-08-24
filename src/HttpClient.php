@@ -54,7 +54,7 @@ class HttpClient
      *
      * @return mixed
      */
-    public function sendRequest($endpoint, $params = [], $method = self::METHOD_GET, $filters = [])
+    public function sendRequest($endpoint, $params = [], $method = self::METHOD_GET, $filters = [], $headers = [])
     {
         $endpoint = $this->getEndpoint($endpoint, $filters);
 
@@ -68,7 +68,7 @@ class HttpClient
         curl_setopt($curlSession, CURLOPT_URL, $this->getUrl($endpoint));
         curl_setopt($curlSession, CURLOPT_TIMEOUT, $this->timeoutInSeconds);
 
-        curl_setopt($curlSession, CURLOPT_HTTPHEADER, ['Authorization: Bearer ' . $this->apiKey, 'Content-Type: application/json', 'Accept: application/json']);
+        curl_setopt($curlSession, CURLOPT_HTTPHEADER, array_merge(['Authorization: Bearer ' . $this->apiKey, 'Content-Type: application/json', 'Accept: application/json'], $headers));
         curl_setopt($curlSession, CURLOPT_HEADERFUNCTION, function ($curl, $header) {
             $this->rawResponseHeaders[] = $header;
 
@@ -103,7 +103,7 @@ class HttpClient
         curl_close($curlSession);
 
         if ($headerInfo['http_code'] == '429') {
-            return $this->handleRateLimitReached($endpoint, $params, $method, $filters);
+            return $this->handleRateLimitReached($endpoint, $params, $method, $filters, $headers);
         }
 
         // API returns error
@@ -182,6 +182,9 @@ class HttpClient
     protected function getEndpoint(string $endpoint, ?array $filters): string
     {
         if (! empty($filters)) {
+            $filters = array_filter($filters, function ($value) {
+                return $value !== null;
+            });
             $i = 0;
             foreach ($filters as $key => $value) {
                 if ($i == 0) {
@@ -233,7 +236,7 @@ class HttpClient
 
     protected function setPostData($curlSession, $method, $params): void
     {
-        if (! in_array($method, [self::METHOD_POST, self::METHOD_PUT, self::METHOD_DELETE])) {
+        if (! in_array($method, [self::METHOD_POST, self::METHOD_PUT, self::METHOD_DELETE, self::METHOD_PATCH])) {
             return;
         }
 
@@ -255,7 +258,7 @@ class HttpClient
     /**
      * @throws RateLimitException
      */
-    protected function handleRateLimitReached($endpoint, $params = [], $method = self::METHOD_GET, $filters = [])
+    protected function handleRateLimitReached($endpoint, $params = [], $method = self::METHOD_GET, $filters = [], $headers = [])
     {
         if (! $this->waitOnRateLimit) {
             // throw new RateLimitException('Rate limit exceeded. Try again later.');
@@ -265,6 +268,6 @@ class HttpClient
 
         sleep($this->sleepTimeOnRateLimitHitInSeconds);
 
-        return $this->sendRequest($endpoint, $params, $method, $filters);
+        return $this->sendRequest($endpoint, $params, $method, $filters, $headers);
     }
 }

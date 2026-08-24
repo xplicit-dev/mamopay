@@ -13,7 +13,7 @@ class Transaction
 {
     private HttpClient $httpClient;
 
-    private $endpoint = '/charges/';
+    private $endpoint = '/payments/';
 
     public function __construct($httpClient)
     {
@@ -56,18 +56,18 @@ class Transaction
     /**
      * Fetch Transaction Info
      *
-     * @param string $chargeId
+     * @param string $paymentId
      * @return TransactionInfo
      */
-    public function get(string $chargeId)
+    public function get(string $paymentId)
     {
-        return $this->httpClient->sendRequest($this->endpoint . $chargeId);
+        return $this->httpClient->sendRequest($this->endpoint . $paymentId);
     }
 
     /**
      * Refund Payment
      *
-     * @param string $chargeId
+     * @param string $paymentId
      * @param float $amount
      * @param array $params
      * @return object{
@@ -75,36 +75,36 @@ class Transaction
      *     refund_amount: float
      * }
      */
-    public function refund(string $chargeId, $amount, $params = [])
+    public function refund(string $paymentId, $amount, $params = [])
     {
         $params = array_merge(['amount' => $amount], $params);
 
-        return $this->httpClient->sendRequest($this->endpoint . $chargeId . '/refunds', $params, $this->httpClient::METHOD_POST);
+        return $this->httpClient->sendRequest($this->endpoint . $paymentId . '/refunds', $params, $this->httpClient::METHOD_POST);
     }
 
     /**
      * To capture an "On hold" charge.
      *
-     * @param string $chargeId Transaction ID / Charge ID
+     * @param string $paymentId Transaction ID / Charge ID
      * @param float $amount Amount to be captured. Must be less than or equal to the charge's amount.
      * @param array $params
      * @return TransactionInfo
      */
-    public function capture(string $chargeId, $amount, $params = [])
+    public function capture(string $paymentId, $amount, $params = [])
     {
         $params = array_merge(['amount' => $amount], $params);
 
-        return $this->httpClient->sendRequest($this->endpoint . $chargeId . '/captures', $params, $this->httpClient::METHOD_POST);
+        return $this->httpClient->sendRequest($this->endpoint . $paymentId . '/captures', $params, $this->httpClient::METHOD_POST);
     }
 
     /**
      * To reverse an "On hold" charge.
-     * @param string $chargeId Transaction ID / Charge ID
+     * @param string $paymentId Transaction ID / Charge ID
      * @param array $params
      * @return TransactionInfo
      */
-    public function reverse(string $chargeId, $params = [])
+    public function reverse(string $paymentId, $params = [])
     {
-        return $this->httpClient->sendRequest($this->endpoint . $chargeId . '/reverses', $params, $this->httpClient::METHOD_POST);
+        return $this->httpClient->sendRequest($this->endpoint . $paymentId . '/reverses', $params, $this->httpClient::METHOD_POST);
     }
 }

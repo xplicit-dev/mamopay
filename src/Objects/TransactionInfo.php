@@ -78,4 +78,15 @@ class TransactionInfo
 
     /** @var string|null Error message (nullable) */
     public ?string $error_message;
+
+    /**
+     * A breakdown of each individual refund issued against this payment.
+     * Empty if the payment hasn't been refunded.
+     *
+     * @var array<object>|null
+     */
+    public ?array $refunds = null;
+
+    /** @var float|null The maximum amount that can still be refunded on this payment. */
+    public ?float $max_refund_amount = null;
 }

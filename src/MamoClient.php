@@ -29,6 +29,24 @@ class MamoClient
     }
 
     /**
+     * Fetch Account Balances
+     * API to fetch the balances of the merchant's different Mamo accounts.
+     *
+     * @return object{
+     *     wallets: array<object{
+     *         id: string,
+     *         currency: string,
+     *         balance: float,
+     *         type: string,
+     *     }>,
+     * }
+     */
+    public function mybalance()
+    {
+        return $this->httpClient->sendRequest('/finances');
+    }
+
+    /**
      * Payment Links
      *
      * @return Links
@@ -96,5 +114,15 @@ class MamoClient
     public function card()
     {
         return (new Cards($this->httpClient));
+    }
+
+    /**
+     * Invoices
+     *
+     * @return Invoice
+     */
+    public function invoice()
+    {
+        return (new Invoice($this->httpClient));
     }
 }

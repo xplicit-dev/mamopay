@@ -100,4 +100,28 @@ class PaymentLink
 
     /** @var object payouts_share object. */
     public object $payouts_share;
+
+    /** @var string|null The identifier of an existing subscription attached to this payment link (recommended way to create subscription links). */
+    public ?string $subscription_id = null;
+
+    /** @var string Type of link: standalone, modal or inline. Default: standalone. */
+    public ?string $link_type = null;
+
+    /** @var string|null The URL which the customer will be redirected to after a failed payment. */
+    public ?string $terms_and_conditions_url = null;
+
+    /** @var string|null Internal note for the business. */
+    public ?string $internal_note = null;
+
+    /** @var string|null The date this payment link expires. */
+    public ?string $expiration_date = null;
+
+    /** @var string|null Language of the payment page. */
+    public ?string $lang = null;
+
+    /** @var float|null Maximum amount allowed when quantity is enabled. */
+    public ?float $max_amount = null;
+
+    /** @var float|null Flat processing fee amount imposed on customers. */
+    public ?float $processing_fee_amount = null;
 }

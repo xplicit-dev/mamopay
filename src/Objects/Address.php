@@ -20,9 +20,15 @@ class Address
     /** @var string City */
     public string $city;
 
-    /** @var string State */
+    /** @var string State (ISO 3166-2, e.g. CA for California) */
     public string $state;
 
-    /** @var string Country */
+    /** @var string Province, if applicable */
+    public ?string $province = null;
+
+    /** @var string Zip / postal code */
+    public ?string $zip = null;
+
+    /** @var string Country (two letters ISO country code) */
     public string $country;
 }

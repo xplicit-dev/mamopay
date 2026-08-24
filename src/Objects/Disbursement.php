@@ -34,4 +34,12 @@ class Disbursement
     /** @var string Amount to be paid as a string. Only AED transfers supported */
     public string $amount;
 
+    /**
+     * Optional. Identifier of a saved recipient (from the Create Recipient API). When provided, the
+     * recipient's saved bank details are used and the raw bank-detail fields can be omitted.
+     *
+     * @var string|null
+     */
+    public ?string $recipient_id = null;
+
 }

@@ -10,7 +10,7 @@ use MamoPay\Api\Objects\RecipientInfo;
 class Recipient
 {
     private HttpClient $httpClient;
-    private string $endpoint = '/accounts/recipients';
+    private string $endpoint = '/recipients';
 
     public function __construct($httpClient)
     {
@@ -57,11 +57,11 @@ class Recipient
      * Update Recipient
      *
      * @param string $recipientIdentifier Recipient Identifier
-     * @param RecipientInfo $recipientInfo
+     * @param RecipientInfo|array $recipientInfo Recipient info object or a raw params array of the fields to update
      * @param array $params Additional parameters like email, name, eid_number, bank, etc.
      * @return RecipientInfo
      */
-    public function update(string $recipientIdentifier, RecipientInfo $recipientInfo, array $params = [])
+    public function update(string $recipientIdentifier, $recipientInfo, array $params = [])
     {
         return $this->httpClient->sendRequest($this->endpoint . "/$recipientIdentifier", $recipientInfo, $this->httpClient::METHOD_PATCH);
     }
@@ -79,5 +79,39 @@ class Recipient
     public function delete(string $recipientIdentifier, array $params = [])
     {
         return $this->httpClient->sendRequest($this->endpoint . "/$recipientIdentifier", $params, $this->httpClient::METHOD_DELETE);
+    }
+
+    /**
+     * Fetch Recipient Balance
+     * Fetches the real-time balance of a recipient's ledger. Recipients accumulate balance from payouts_share
+     * splits on payments, and the balance is deducted when a payout is issued to the recipient.
+     *
+     * @param string $recipientIdentifier Recipient Identifier
+     * @return object
+     */
+    public function balance(string $recipientIdentifier)
+    {
+        return $this->httpClient->sendRequest('/recipients/' . $recipientIdentifier . '/balances');
+    }
+
+    /**
+     * Validate IBAN
+     * Validates a UAE IBAN and returns the bank it belongs to. Useful for verifying a recipient's bank details
+     * before creating them. Always returns 200 OK for a well-formed request - an invalid IBAN is reflected by
+     * `valid: false` in the response with an `errors` array, not by an error response.
+     *
+     * @param string $iban The IBAN to validate
+     * @return object{
+     *     iban: string,
+     *     valid: bool,
+     *     country_code?: string,
+     *     bic_code?: string,
+     *     bank_name?: string,
+     *     errors?: array<string>
+     * }
+     */
+    public function validateIban(string $iban)
+    {
+        return $this->httpClient->sendRequest('/iban/validate', [], $this->httpClient::METHOD_GET, ['iban' => $iban]);
     }
 }

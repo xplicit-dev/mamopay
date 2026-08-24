@@ -5,13 +5,13 @@
         "xplicit-dev",
         "mamopay"
     ],
-    "version": "2.1",
+    "version": "2.2.0",
     "homepage": "https://github.com/xplicit-dev/mamopay",
     "license": "MIT",
     "authors": [
         {
             "name": "xplicit-dev",
-            "email": "blackboy.email@gmail.com",
+            "email": "anaspk144@gmail.com",
             "role": "Developer"
         }
     ],
@@ -29,9 +29,7 @@
             "MamoPay\\Api\\Tests\\": "tests"
         }
     },
-    "scripts": {
-
-    },
+    "scripts": {},
     "config": {
         "sort-packages": true,
         "allow-plugins": {
@@ -39,5 +37,8 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "require-dev": {
+        "phpunit/phpunit": "^11.5"
+    }
 }

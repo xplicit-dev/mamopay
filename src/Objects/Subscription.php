@@ -31,4 +31,10 @@ class Subscription
 
     /** @var int Number of times this subscription will occur. If end_date is defined, end_date takes precedence. */
     public int $payment_quantity;
+
+    /** @var int|null The day of the month this subscription starts on (monthly/annually frequency only) */
+    public ?int $monthly_start_date = null;
+
+    /** @var string|null The day of the week this subscription starts on (weekly frequency only) */
+    public ?string $weekly_start_day = null;
 }
